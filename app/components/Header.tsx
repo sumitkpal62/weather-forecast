@@ -20,7 +20,11 @@ export default function Header() {
           <Link href="/weather">Weather</Link>
         </li>
       </ul>
+<<<<<<< HEAD
       <button className="flex justify-center items-center gap-1 w-1/4">
+=======
+      <button className="flex justify-center gap-1 w-1/4">
+>>>>>>> adde70d2afdcc294505f8e2467bcec8a3c016f62
         Light
         <MdLightMode />
       </button>
