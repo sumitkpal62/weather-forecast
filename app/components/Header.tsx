@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { MdLightMode } from "react-icons/md";
+import { IoSearch } from "react-icons/io5";
+
 
 
 export default function Header() {
@@ -20,6 +22,13 @@ export default function Header() {
           <Link href="/weather">Weather</Link>
         </li>
       </ul>
+      <div className="flex items-center bg-white p-2 rounded text-black">
+        <input
+          type="text"
+          className="outline-none"
+        />
+        <IoSearch />
+      </div>
       <button className="flex justify-center items-center gap-1 w-1/4">
         Light
         <MdLightMode />

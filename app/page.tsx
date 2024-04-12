@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from "react";
 import { fetchGeolocation } from "./api";
+import { IoSearch } from "react-icons/io5";
 
 interface GeolocationItem {
   geoname_id: string;
@@ -21,16 +22,24 @@ interface GeolocationItem {
 export default function Home() {
   const [data, setData] = useState<GeolocationItem[]>([]);
   const [offset, setOffset] = useState<number>(0);
+  const [search, setSearch] = useState<string>('');
 
   useEffect(() => {
-    fetchGeolocation(offset).then((response) => {
+    fetchGeolocation(offset, '').then((response) => {
       setData((prevData) => [...prevData, ...response?.results]);
     })
   }, [offset])
 
+  useEffect(() => {
+    setOffset(0);
+    fetchGeolocation(0, search).then((response) => {
+      setData(response?.results);
+    })
+  }, [search]);
 
 
-  const handleOnScroll = (e) => {
+
+  const handleOnScroll = (e: any) => {
     const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
     if (bottom) {
       setOffset((prevOffset) => prevOffset + 200);
@@ -38,7 +47,15 @@ export default function Home() {
   }
 
   return (
-    <div className="border border-black m-2">
+    <div className="border border-black m-2 rounded">
+      <div className="flex items-center bg-white p-2 rounded text-black border border-black w-[250px] m-1 outline outline-1 outline-blue-500">
+        <input
+          type="text"
+          className="outline-none"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <IoSearch />
+      </div>
       <div className="h-[85vh] overflow-x-auto" onScroll={handleOnScroll}>
         <table className="min-w-full">
           <thead className="sticky top-0 bg-gray-100 border-b-2 border-black">
